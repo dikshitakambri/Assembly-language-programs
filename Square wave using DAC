@@ -1,0 +1,16 @@
+START : MOV AL,80H ;80H FOR CWR to select basic IO mode of 8255 and 
+        OUT 86H,AL ;to define all ports as an output port
+REP   : MOV AL,00H
+        OUT 80H,AL
+        CALL DELAY
+        MOV AL,FFH
+        OUT 80H,AL
+        CALL DELAY
+        JMP REP
+        INT 3
+DELAY : MOV BX, 00FFH
+BACK  : MOV CX, 00FFH
+HERE  : LOOP HERE
+        DEC BL
+        JNZ BACK
+        RET
